@@ -84,6 +84,8 @@ export default function Orders() {
   const [openRefund, setOpenRefund] = useState(false);
   const [description, setDescription] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
+  const statusOutOfStock = "OUT OF STOCK";
+  const prepayPercent = 30 / 100;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -411,6 +413,18 @@ export default function Orders() {
 
   console.log(ordersByStatus);
 
+  // Helper function to format date as "yyyy-mm-dd"
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Inside your component
+  const today = formatDate(new Date());
+
   const handleRepurchase = async (items) => {
     // const reversedItems = [...items].reverse();
     // items?.forEach((index) => {
@@ -418,6 +432,14 @@ export default function Orders() {
     //   .then((res) => (
     for (const item of items) {
       const res = await productByIdApi(item.product_id);
+      if (
+        res?.data?.data.is_active === false ||
+        res?.data?.data.status === statusOutOfStock ||
+        (res?.data?.data.expiryDate && res?.data?.data.expiryDate <= today)
+      ) {
+        toast.error("This product is no longer available", { autoClose: 1000 });
+        return;
+      }
       if (res?.data?.data.remain > 0) {
         dispatch(
           addToCart({
@@ -1502,6 +1524,58 @@ export default function Orders() {
                             style={{ fontWeight: "bold", fontSize: "1.5rem" }}
                           >
                             {formatCurrency(item.final_amount)}
+                          </span>
+                        </Box>
+                        {item.type === "PRE_ORDER" && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              marginBottom: "4px",
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "1.35rem",
+                              }}
+                            >
+                              Prepay:
+                            </span>
+                            <span
+                              style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                            >
+                              {formatCurrency(
+                                item.final_amount * prepayPercent
+                              )}
+                            </span>
+                          </Box>
+                        )}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: "4px",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              fontSize: "1.35rem",
+                            }}
+                          >
+                            COD:
+                          </span>
+                          <span
+                            style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                          >
+                            {item.type === "PRE_ORDER"
+                              ? formatCurrency(
+                                  item.final_amount * (1 - prepayPercent)
+                                )
+                              : item.payment_method === "VNPAY"
+                              ? formatCurrency(0)
+                              : formatCurrency(item.final_amount)}
                           </span>
                         </Box>
                       </Typography>

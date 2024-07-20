@@ -10,6 +10,7 @@ export default function Policy() {
         <Breadcrumbs separator=">" sx={{ color: "black", pt: 4 }}>
           <Link
             to="/"
+            onClick={() => window.scrollTo(0, 0)}
             style={{
               textDecoration: "none",
             }}
@@ -36,7 +37,17 @@ export default function Policy() {
           </Typography>
         </Breadcrumbs>
       </Container>
-      <Container sx={{ mt: 2 }}>
+      <Container sx={{ mt: 2, animation: "fadeInPolicy 1.5s ease-in-out",
+            "@keyframes fadeInPolicy ": {
+              from: {
+                opacity: 0,
+                transform: "translateY(10%)",
+              },
+              to: {
+                opacity: 1,
+                transform: "translateY(0)",
+              },
+            }, }}>
         <Typography
           variant="h4"
           sx={{ fontWeight: "bold", textAlign: "center" }}
@@ -55,7 +66,7 @@ export default function Policy() {
             <Typography>
               -{" "}
               <span
-                style={{ color: "#ff469e", cursor: "pointer" }}
+                style={{ color: "#ff469e", cursor: "pointer", fontWeight: "600" }}
                 onClick={() => navigate("/signin")}
               >
                 Login
@@ -65,7 +76,7 @@ export default function Policy() {
               spaces, while your password is at least 8 characters). Please sign
               up at{" "}
               <span
-                style={{ color: "#ff469e", cursor: "pointer" }}
+                style={{ color: "#ff469e", cursor: "pointer", fontWeight: "600" }}
                 onClick={() => navigate("/signup")}
               >
                 here

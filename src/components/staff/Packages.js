@@ -10,13 +10,15 @@ import {
   CircularProgress,
   Box,
   IconButton,
+  Modal,
 } from "@mui/material";
 import { allPackageApi } from "../../api/PackagesAPI";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import KeyboardCapslockIcon from "@mui/icons-material/KeyboardCapslock";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import { makePackagePaymentApi } from "../../api/VNPayAPI";
 import { storeByUserIdApi } from "../../api/StoreAPI";
+import { createStorePackageApi } from "../../api/StorePackageAPI";
 
 export default function Package() {
   const navigate = useNavigate();
@@ -28,6 +30,8 @@ export default function Package() {
   const [loading, setLoading] = useState(false);
   const [packages, setPackages] = useState([]);
   const [store, setStore] = useState(null);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,8 +71,15 @@ export default function Package() {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("vi-VN").format(amount) + " VND";
   };
+  const handleOpenConfirm = (pkg) => {
+    setSelectedPackage(pkg);
+    setOpenConfirm(true);
+  };
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
 
-const handleCheckout = (pkg) => {
+  const handleCheckout = (pkg) => {
     if (!accessToken) {
       toast.warn("Please login to continue your purchase", { autoClose: 1000 });
       setTimeout(() => {
@@ -81,29 +92,28 @@ const handleCheckout = (pkg) => {
       toast.error("No store found for this user. Please try again later.");
       return;
     }
-
-    const finalAmount = pkg.price;
-    const bankCode = "VNBANK";
-    const packageId = pkg.id;
-    console.log("Package ID:", packageId); // Kiểm tra packageId
-    console.log("User ID:", userId); // Kiểm tra userId
-    console.log("Store ID:", storeId); // Kiểm tra storeId
-
-    makePackagePaymentApi(finalAmount, bankCode, packageId, storeId) // Thêm storeId vào hàm này
+    createStorePackageApi(selectedPackage.id, storeId, selectedPackage.price)
       .then((res) => {
-        console.log("Payment initiation response:", res.data);
-        toast.success("Now moving to payment page!", { autoClose: 1000 });
-        setTimeout(() => {
-          window.location.replace(res.data?.data?.payment_url);
-        }, 1);
+        const storePackageId = res?.data?.data?.id;
+
+        const finalAmount = selectedPackage.price;
+        const bankCode = "VNBANK";
+        makePackagePaymentApi(finalAmount, bankCode, storePackageId)
+          .then((res) => {
+            console.log("Payment initiation response:", res.data);
+            toast.success("Now moving to payment page!", { autoClose: 1000 });
+            setTimeout(() => {
+              window.location.replace(res.data?.data?.payment_url);
+            }, 1500);
+          })
+          .catch((error) => {
+            console.error("There was an error initiating the payment!", error);
+            console.error("Response data:", error.response.data);
+            toast.error("Unable to initiate payment. Please try again later.");
+          });
       })
-      .catch((error) => {
-        console.error("There was an error initiating the payment!", error);
-        console.error("Response data:", error.response.data);
-        toast.error("Unable to initiate payment. Please try again later.");
-      });
+      .catch((error) => console.log(error));
   };
-  
 
   if (loading) {
     return (
@@ -163,6 +173,7 @@ const handleCheckout = (pkg) => {
                   borderRadius: "20px",
                   boxShadow: 4,
                   transition: "0.3s ease-in-out",
+                  border: "1px solid white",
                   "&:hover": {
                     boxShadow: 6,
                     transform: "scale(1.02)",
@@ -183,26 +194,128 @@ const handleCheckout = (pkg) => {
                     gutterBottom
                     sx={{ fontWeight: "bold" }}
                   >
-                    {formatCurrency(pkg.price)} /{pkg.month} month
+                    {formatCurrency(pkg.price)} / {pkg.month} month
                   </Typography>
                   <Typography variant="body1" gutterBottom>
                     {pkg.description}
                   </Typography>
+                  <Box sx={{ width: "100%", textAlign: "right"}}>
                   <Button
                     variant="outlined"
                     sx={{
-                      textAlign: "right",
+                      ml: "auto",
+                      backgroundColor: "white",
                       color: "#ff469e",
+                      borderRadius: "30px",
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      mt: 2,
+                      width: "10vw",
+                      transition:
+                        "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
                       border: "1px solid #ff469e",
                       "&:hover": {
                         backgroundColor: "#ff469e",
                         color: "white",
+                        border: "1px solid white",
                       },
                     }}
-                    onClick={() => handleCheckout(pkg)}
+                    onClick={() => handleOpenConfirm(pkg)}
                   >
                     Buy Package
                   </Button>
+                  </Box>
+                  <Modal
+                    open={openConfirm}
+                    onClose={handleCloseConfirm}
+                    slotProps={{
+                      backdrop: {
+                        style: {
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 400,
+                        borderRadius: "20px",
+                        backgroundColor: "#fff4fc",
+                        border: "2px solid #ff469e",
+                        boxShadow: 10,
+                        p: 4,
+                      }}
+                    >
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                      >
+                        Confirm Checkout
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Are you sure you want to checkout for this order?
+                      </Typography>
+                      <Box
+                        sx={{
+                          mt: 2,
+                          display: "flex",
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "white",
+                            color: "#ff469e",
+                            borderRadius: "20px",
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            my: 0.2,
+                            mx: 1,
+                            transition:
+                              "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
+                            border: "1px solid #ff469e",
+                            "&:hover": {
+                              backgroundColor: "#ff469e",
+                              color: "white",
+                              border: "1px solid white",
+                            },
+                          }}
+                          onClick={handleCheckout}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "white",
+                            color: "#ff469e",
+                            borderRadius: "20px",
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            my: 0.2,
+                            mx: 1,
+                            transition:
+                              "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
+                            border: "1px solid #ff469e",
+                            "&:hover": {
+                              backgroundColor: "#ff469e",
+                              color: "white",
+                              border: "1px solid white",
+                            },
+                          }}
+                          onClick={handleCloseConfirm}
+                        >
+                          No
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Modal>
                 </CardContent>
               </Card>
             </Grid>

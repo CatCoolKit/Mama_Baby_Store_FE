@@ -101,10 +101,10 @@ function App() {
         <Route path="/articles" element={<Article />} />
         <Route path="/stores/:article_id" element={<Article />} />
         <Route path="/article/:articleId" element={<ArticleDetails />} />
-        <Route path="/history/comment" element={<CommentHistory />} />
         <Route path="/cart" element={<Cart />} />
         <Route element={<ProtectedRoute allowedRole={"MEMBER"} />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/history/comment" element={<CommentHistory />} />
           <Route path="/successPayment" element={<SuccessPayment />} />
           <Route path="/failedPayment" element={<FailedPayment />} />
           <Route path="/orders" element={<Orders />} />
@@ -128,8 +128,8 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="packages" element={<Packages />} />
             <Route path="successPackagePayment" element={<SuccessPackagePayment />} />
-          <Route path="failedPackagePayment" element={<FailedPackagePayment />} />
-          <Route path="storeprofile" element={<StoreProfile />} />
+            <Route path="failedPackagePayment" element={<FailedPackagePayment />} />
+            <Route path="storeprofile" element={<StoreProfile />} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRole={"ADMIN"} />}>
