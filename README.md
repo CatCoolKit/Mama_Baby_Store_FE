@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# Mama-Baby Store FE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Mama-Baby là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm sữa dinh dưỡng chất lượng cao dành cho mẹ bầu và trẻ nhỏ. Dự án này là giao diện người dùng (frontend) được xây dựng bằng ReactJS, sử dụng Material UI, Redux Toolkit và nhiều thư viện hiện đại khác.
 
-## Available Scripts
+## Giới thiệu
 
-In the project directory, you can run:
+Mama-Baby hướng tới việc hỗ trợ sức khỏe và dinh dưỡng cho mẹ bầu, trẻ sơ sinh và trẻ nhỏ thông qua các sản phẩm sữa giàu dưỡng chất, cùng các dịch vụ tư vấn, chăm sóc khách hàng tận tâm.
 
-### `npm start`
+### Sứ mệnh
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Đảm bảo chất lượng sản phẩm sữa cho mẹ và bé.
+- Cung cấp dịch vụ tư vấn dinh dưỡng, hỗ trợ khách hàng.
+- Đáp ứng nhu cầu mua sắm tiện lợi, an toàn, nhanh chóng.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tính năng chính
 
-### `npm test`
+### Đối với khách hàng (Member)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Đăng ký, đăng nhập, quản lý tài khoản cá nhân.
+- Duyệt, tìm kiếm, lọc sản phẩm theo độ tuổi, thương hiệu, danh mục.
+- Thêm sản phẩm vào giỏ hàng, đặt hàng, thanh toán trực tuyến (VNPay), sử dụng voucher.
+- Xem lịch sử đơn hàng, đánh giá sản phẩm, tích điểm đổi quà.
+- Theo dõi các chương trình khuyến mãi, ưu đãi.
+- Đăng ký mở cửa hàng (nâng cấp lên Staff).
 
-### `npm run build`
+### Đối với nhân viên cửa hàng (Staff)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Quản lý sản phẩm, đơn hàng, đổi/trả hàng, voucher, bài viết, gói sản phẩm.
+- Xem dashboard thống kê doanh thu, đơn hàng, hoàn tiền, đổi trả.
+- Quản lý thông tin cửa hàng cá nhân.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Đối với quản trị viên (Admin)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Quản lý tài khoản người dùng, phê duyệt yêu cầu mở cửa hàng.
+- Quản lý danh mục, thương hiệu, độ tuổi, gói sản phẩm.
+- Quản lý hệ thống cửa hàng, thống kê tổng quan toàn hệ thống.
 
-### `npm run eject`
+## Công nghệ sử dụng
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- ReactJS 18
+- Material UI 5
+- Redux Toolkit
+- React Router DOM
+- Axios
+- Chart.js, react-chartjs-2
+- Bootstrap
+- Socket.io-client
+- VNPay tích hợp thanh toán
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Cài đặt & Chạy dự án
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Clone repo:**
+   ```bash
+   git clone <repo-url>
+   cd Mama_Baby_Store_FE
+   ```
+2. **Cài đặt dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Chạy ứng dụng:**
+   ```bash
+   npm start
+   ```
+   Ứng dụng sẽ chạy tại [http://localhost:3000](http://localhost:3000)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Scripts
 
-## Learn More
+- `npm start`: Chạy chế độ phát triển
+- `npm run build`: Build production
+- `npm test`: Chạy test
+- `npm run eject`: Eject cấu hình CRA
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Thông tin thêm
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Dự án sử dụng Create React App làm nền tảng khởi tạo.
+- Kết nối API backend qua các file trong `src/api/`.
+- Quản lý trạng thái với Redux Toolkit và redux-persist.
+- Giao diện responsive, tối ưu cho cả desktop và mobile.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Nếu có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ nhóm phát triển.
