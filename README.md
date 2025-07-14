@@ -1,41 +1,41 @@
 # Mama-Baby Store FE
 
-Mama-Baby là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm sữa dinh dưỡng chất lượng cao dành cho mẹ bầu và trẻ nhỏ. Dự án này là giao diện người dùng (frontend) được xây dựng bằng ReactJS, sử dụng Material UI, Redux Toolkit và nhiều thư viện hiện đại khác.
+Mama-Baby is an e-commerce platform specializing in high-quality nutritional milk products for pregnant mothers and babies. This project is the frontend, built with ReactJS, Material UI, Redux Toolkit, and other modern libraries.
 
-## Giới thiệu
+## Introduction
 
-Mama-Baby hướng tới việc hỗ trợ sức khỏe và dinh dưỡng cho mẹ bầu, trẻ sơ sinh và trẻ nhỏ thông qua các sản phẩm sữa giàu dưỡng chất, cùng các dịch vụ tư vấn, chăm sóc khách hàng tận tâm.
+Mama-Baby aims to support the health and nutrition of pregnant women, infants, and young children through premium milk products and dedicated customer care services.
 
-### Sứ mệnh
+### Mission
 
-- Đảm bảo chất lượng sản phẩm sữa cho mẹ và bé.
-- Cung cấp dịch vụ tư vấn dinh dưỡng, hỗ trợ khách hàng.
-- Đáp ứng nhu cầu mua sắm tiện lợi, an toàn, nhanh chóng.
+- Ensure the quality of milk products for mothers and babies.
+- Provide nutritional consultation and customer support services.
+- Deliver a convenient, safe, and fast shopping experience.
 
-## Tính năng chính
+## Main Features
 
-### Đối với khách hàng (Member)
+### For Customers (Member)
 
-- Đăng ký, đăng nhập, quản lý tài khoản cá nhân.
-- Duyệt, tìm kiếm, lọc sản phẩm theo độ tuổi, thương hiệu, danh mục.
-- Thêm sản phẩm vào giỏ hàng, đặt hàng, thanh toán trực tuyến (VNPay), sử dụng voucher.
-- Xem lịch sử đơn hàng, đánh giá sản phẩm, tích điểm đổi quà.
-- Theo dõi các chương trình khuyến mãi, ưu đãi.
-- Đăng ký mở cửa hàng (nâng cấp lên Staff).
+- Register, log in, and manage personal accounts.
+- Browse, search, and filter products by age, brand, and category.
+- Add products to cart, place orders, pay online (VNPay), and use vouchers.
+- View order history, rate products, and collect points for gift redemption.
+- Follow promotions and special offers.
+- Register to open a store (upgrade to Staff).
 
-### Đối với nhân viên cửa hàng (Staff)
+### For Store Staff (Staff)
 
-- Quản lý sản phẩm, đơn hàng, đổi/trả hàng, voucher, bài viết, gói sản phẩm.
-- Xem dashboard thống kê doanh thu, đơn hàng, hoàn tiền, đổi trả.
-- Quản lý thông tin cửa hàng cá nhân.
+- Manage products, orders, exchanges/returns, vouchers, articles, and product packages.
+- View dashboard with revenue, order, refund, and exchange statistics.
+- Manage personal store information.
 
-### Đối với quản trị viên (Admin)
+### For Administrators (Admin)
 
-- Quản lý tài khoản người dùng, phê duyệt yêu cầu mở cửa hàng.
-- Quản lý danh mục, thương hiệu, độ tuổi, gói sản phẩm.
-- Quản lý hệ thống cửa hàng, thống kê tổng quan toàn hệ thống.
+- Manage user accounts and approve store registration requests.
+- Manage categories, brands, age groups, and product packages.
+- Manage the store system and view overall system statistics.
 
-## Công nghệ sử dụng
+## Technologies Used
 
 - ReactJS 18
 - Material UI 5
@@ -45,39 +45,39 @@ Mama-Baby hướng tới việc hỗ trợ sức khỏe và dinh dưỡng cho m�
 - Chart.js, react-chartjs-2
 - Bootstrap
 - Socket.io-client
-- VNPay tích hợp thanh toán
+- VNPay payment integration
 
-## Cài đặt & Chạy dự án
+## Setup & Run
 
-1. **Clone repo:**
+1. **Clone the repository:**
    ```bash
    git clone <repo-url>
    cd Mama_Baby_Store_FE
    ```
-2. **Cài đặt dependencies:**
+2. **Install dependencies:**
    ```bash
    npm install
    ```
-3. **Chạy ứng dụng:**
+3. **Start the application:**
    ```bash
    npm start
    ```
-   Ứng dụng sẽ chạy tại [http://localhost:3000](http://localhost:3000)
+   The app will run at [http://localhost:3000](http://localhost:3000)
 
 ## Scripts
 
-- `npm start`: Chạy chế độ phát triển
-- `npm run build`: Build production
-- `npm test`: Chạy test
-- `npm run eject`: Eject cấu hình CRA
+- `npm start`: Start development server
+- `npm run build`: Build for production
+- `npm test`: Run tests
+- `npm run eject`: Eject CRA configuration
 
-## Thông tin thêm
+## Additional Information
 
-- Dự án sử dụng Create React App làm nền tảng khởi tạo.
-- Kết nối API backend qua các file trong `src/api/`.
-- Quản lý trạng thái với Redux Toolkit và redux-persist.
-- Giao diện responsive, tối ưu cho cả desktop và mobile.
+- The project uses Create React App as the base.
+- Connects to backend APIs via files in `src/api/`.
+- State management with Redux Toolkit and redux-persist.
+- Responsive UI, optimized for both desktop and mobile.
 
 ---
 
-Nếu có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ nhóm phát triển.
+For questions or support, please contact the development team.
